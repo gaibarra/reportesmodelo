@@ -3,15 +3,13 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTask, deleteTask, getTask, updateTask } from "../api/tasks.api";
 import { toast } from "react-hot-toast";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 export function TaskFormPage() {
   const navigate = useNavigate();
   const params = useParams();
   const [initialImage, setInitialImage] = useState(null);
   const [finalImage, setFinalImage] = useState(null);
-  const [fechaResolucion, setFechaResolucion] = useState(null);
+  const [fechaResolucion, setFechaResolucion] = useState("");
 
   const {
     register,
@@ -34,11 +32,11 @@ export function TaskFormPage() {
     });
 
     if (fechaResolucion) {
-      formData.append("fecha_resolucion", fechaResolucion.toISOString().split('T')[0]);
+      formData.append("fecha_resolucion", fechaResolucion);
     }
 
     if (!data.title) {
-      toast.error("Title is required", {
+      toast.error("El título es requerido", {
         position: "bottom-right",
         style: {
           background: "#101010",
@@ -51,7 +49,7 @@ export function TaskFormPage() {
     try {
       if (params.id) {
         await updateTask(params.id, formData);
-        toast.success("Task updated", {
+        toast.success("Tarea actualizada", {
           position: "bottom-right",
           style: {
             background: "#101010",
@@ -60,7 +58,7 @@ export function TaskFormPage() {
         });
       } else {
         await createTask(formData);
-        toast.success("New Task Added", {
+        toast.success("Nueva tarea añadida", {
           position: "bottom-right",
           style: {
             background: "#101010",
@@ -72,7 +70,7 @@ export function TaskFormPage() {
       navigate("/tasks");
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred", {
+      toast.error("Ocurrió un error", {
         position: "bottom-right",
         style: {
           background: "#101010",
@@ -98,7 +96,7 @@ export function TaskFormPage() {
         setValue("description", data.description);
         setValue("done", data.done);
         if (data.fecha_resolucion) {
-          setFechaResolucion(new Date(data.fecha_resolucion));
+          setFechaResolucion(data.fecha_resolucion.split('T')[0]);
         }
         setInitialImage(data.foto_inicial);
         setFinalImage(data.foto_final);
@@ -119,14 +117,14 @@ export function TaskFormPage() {
           placeholder="Título"
           className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
         />
-        {errors.title && <span>Title is required</span>}
+        {errors.title && <span>El título es requerido</span>}
 
         <textarea
           {...register("description", { required: true })}
           placeholder="Descripción"
           className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
         />
-        {errors.description && <span>Description is required</span>}
+        {errors.description && <span>La descripción es requerida</span>}
 
         {initialImage && (
           <img
@@ -141,19 +139,22 @@ export function TaskFormPage() {
           {...register("foto_inicial")}
           className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
         />
+
         <label htmlFor="fecha_resolucion" className="block mb-1">
           Fecha de Resolución
         </label>
-        <DatePicker 
-          selected={fechaResolucion} 
-          onChange={date => setFechaResolucion(date)} 
-          dateFormat="dd/MM/yyyy"
-          className="bg-zinc-700 p-3 rounded-lg block w-50% mb-3"
+        <input 
+          type="date" 
+          id="fecha_resolucion"
+          value={fechaResolucion} 
+          onChange={e => setFechaResolucion(e.target.value)} 
+          className="bg-zinc-700 p-3 rounded-lg block w-100% mb-3"
           style={{ border: "2px solid red", backgroundColor: "#808080" }}
         />
         {errors.fecha_resolucion && (
-          <span>Fecha de Resolución is required</span>
+          <span>La fecha de resolución es requerida</span>
         )}
+
         {finalImage && (
           <img
             src={finalImage}
@@ -161,6 +162,7 @@ export function TaskFormPage() {
             style={{ width: "250px", height: "250px", objectFit: "cover" }}
           />
         )}
+
         <input
           type="file"
           {...register("foto_final")}
@@ -187,7 +189,7 @@ export function TaskFormPage() {
             className="bg-red-500 p-3 rounded-lg w-48 mt-3"
             onClick={async () => {
               const accepted = window.confirm(
-                "Estás seguro de eliminar este Reporte?"
+                "¿Estás seguro de eliminar este reporte?"
               );
               if (accepted) {
                 await deleteTask(params.id);

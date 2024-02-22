@@ -91,7 +91,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'reportes',
-        'HOST': 'localhost',
+        'HOST': '194.113.64.91',
         'USER': 'postgres',
         'PASSWORD': '6Vlgpcr&',
         'PORT': 5432
@@ -149,7 +149,9 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS_ALLOWED_ORIGINS = ['http://localhost:5173/']
-CORS_ORIGIN_WHITELIST = ['http://localhost:5174']
+CORS_ORIGIN_WHITELIST = ['http://localhost:5174',
+                         'http://localhost:5173',
+                         ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
