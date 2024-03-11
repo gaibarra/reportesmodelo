@@ -29,6 +29,7 @@ export function TaskCard({ task }) {
       onClick={() => {
         navigate(`/tasks/${task.id}`);
       }}
+      
     >
       <h1 className="text-white font-bold uppercase rounded-lg text-2xl mb-2">
         {task.title}

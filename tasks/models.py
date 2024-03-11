@@ -31,22 +31,17 @@ class Task(models.Model):
         return self.title
 
 
-class Empleado(User):
-   numero_empleado = models.CharField(max_length=20)
-   puesto = models.CharField(max_length=100)
-   campus = models.CharField(
-        max_length=100
-    )  # Puedes cambiar esto por un modelo Campus si necesitas mÃ¡s detalles del campus
+class Empleado(models.Model):
+    nombre_empleado = models.CharField(max_length=30, default=None)
+    campus = models.CharField(max_length=30, default=None)
 
-   def __str__(self):
-        return self.username
-
+    def __str__(self):
+        return self.nombre_empleado  
 
 class Evento(models.Model):
     descripcion = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
     reporte = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='eventos')
-    empleado = models.ForeignKey(Empleado, on_delete=models.SET_NULL, null=True, related_name='eventos')
-
+    empleado = models.ForeignKey(Empleado, on_delete=models.PROTECT, related_name='eventos')
     def __str__(self):
         return self.descripcion

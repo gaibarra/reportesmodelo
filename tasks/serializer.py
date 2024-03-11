@@ -17,4 +17,10 @@ class EmpleadoSerializer(serializers.ModelSerializer):
 class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
-        fields = '__all__'      
+        fields = ['id', 'descripcion', 'fecha', 'reporte', 'empleado']
+
+    def create(self, validated_data):
+        empleado = validated_data.pop('empleado')
+        if not isinstance(empleado, Empleado):
+           raise serializers.ValidationError("empleado must be an Empleado instance.")
+        return Evento.objects.create(empleado=empleado, **validated_data)

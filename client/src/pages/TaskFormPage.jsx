@@ -96,7 +96,7 @@ export function TaskFormPage() {
         setValue("description", data.description);
         setValue("done", data.done);
         if (data.fecha_resolucion) {
-          setFechaResolucion(data.fecha_resolucion.split('T')[0]);
+          setFechaResolucion(data.fecha_resolucion.split("T")[0]);
         }
         setInitialImage(data.foto_inicial);
         setFinalImage(data.foto_final);
@@ -143,11 +143,11 @@ export function TaskFormPage() {
         <label htmlFor="fecha_resolucion" className="block mb-1">
           Fecha de Resolución
         </label>
-        <input 
-          type="date" 
+        <input
+          type="date"
           id="fecha_resolucion"
-          value={fechaResolucion} 
-          onChange={e => setFechaResolucion(e.target.value)} 
+          value={fechaResolucion}
+          onChange={(e) => setFechaResolucion(e.target.value)}
           className="bg-zinc-700 p-3 rounded-lg block w-100% mb-3"
           style={{ border: "2px solid red", backgroundColor: "#808080" }}
         />
@@ -184,7 +184,14 @@ export function TaskFormPage() {
       </form>
 
       {params.id && (
-        <div className="flex justify-end">
+        <div className="flex flex-start">
+          <button
+            className="bg-green-500 p-3 rounded-lg w-48 mt-3 mr-3"
+            onClick={() => navigate(`/eventos/${params.id}`)}
+          >
+            Registro de avances
+          </button>
+
           <button
             className="bg-red-500 p-3 rounded-lg w-48 mt-3"
             onClick={async () => {
@@ -204,7 +211,7 @@ export function TaskFormPage() {
               }
             }}
           >
-            Eliminar
+            Eliminar este Reporte
           </button>
         </div>
       )}
