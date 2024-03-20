@@ -3,7 +3,7 @@ import axios from "axios";
 const URL =
   process.env.NODE_ENV === "production"
     ? import.meta.env.VITE_BACKEND_URL
-    : "climatizacionintegral.org:5432";
+    : "http://climatizacionintegral.org:5432";
 
 console.log(URL);
 const tasksApi = axios.create({
