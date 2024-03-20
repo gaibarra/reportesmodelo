@@ -127,11 +127,13 @@ export function TaskFormPage() {
         {errors.description && <span>La descripción es requerida</span>}
 
         {initialImage && (
-          <img
-            src={initialImage}
-            alt="Foto inicial"
-            style={{ width: "250px", height: "250px", objectFit: "cover" }}
-          />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img
+              src={initialImage}
+              alt="Foto inicial"
+              style={{ width: "350px", height: "250px", objectFit: "cover" }}
+            />
+          </div>
         )}
 
         <input
@@ -140,26 +142,28 @@ export function TaskFormPage() {
           className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
         />
 
-        <label htmlFor="fecha_resolucion" className="block mb-1">
-          Fecha de Resolución
-        </label>
-        <input
-          type="date"
-          id="fecha_resolucion"
-          value={fechaResolucion}
-          onChange={(e) => setFechaResolucion(e.target.value)}
-          className="bg-zinc-700 p-3 rounded-lg block w-100% mb-3"
-          style={{ border: "2px solid red", backgroundColor: "#808080" }}
-        />
-        {errors.fecha_resolucion && (
-          <span>La fecha de resolución es requerida</span>
-        )}
-
+        <div className="flex flex-col items-center justify-center">
+          <label htmlFor="fecha_resolucion" className="block mb-1">
+            Fecha de Resolución
+          </label>
+          <input
+            type="date"
+            id="fecha_resolucion"
+            value={fechaResolucion}
+            onChange={(e) => setFechaResolucion(e.target.value)}
+            className="bg-zinc-700 p-3 rounded-lg block w-100% mb-3"
+            style={{ border: "2px solid red", backgroundColor: "#808080" }}
+          />
+          {errors.fecha_resolucion && (
+            <span>La fecha de resolución es requerida</span>
+          )}
+        </div>
         {finalImage && (
           <img
             src={finalImage}
             alt="Foto final"
-            style={{ width: "250px", height: "250px", objectFit: "cover" }}
+            style={{ width: "350px", height: "250px", objectFit: "cover" }}
+            className="mx-auto"
           />
         )}
 
@@ -184,14 +188,15 @@ export function TaskFormPage() {
       </form>
 
       {params.id && (
-        <div className="flex flex-start">
+        <div className="flex justify-center">
+          {" "}
+          {/* Add 'justify-center' class */}
           <button
             className="bg-green-500 p-3 rounded-lg w-48 mt-3 mr-3"
             onClick={() => navigate(`/eventos/${params.id}`)}
           >
             Registro de avances
           </button>
-
           <button
             className="bg-red-500 p-3 rounded-lg w-48 mt-3"
             onClick={async () => {

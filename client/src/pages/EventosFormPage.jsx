@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getEventos, createEvento, getAllEmpleados, getTask } from "../api/tasks.api";
+import {
+  getEventos,
+  createEvento,
+  getAllEmpleados,
+  getTask,
+} from "../api/tasks.api";
 
 export function EventosFormPage() {
   const params = useParams();
@@ -12,9 +17,9 @@ export function EventosFormPage() {
     empleado: null,
   });
   const [isEventRegistered, setIsEventRegistered] = useState(false);
-  
+
   const [task, setTask] = useState(null);
-  
+
   useEffect(() => {
     loadEvents();
     loadEmpleados();
@@ -25,7 +30,7 @@ export function EventosFormPage() {
     const { data } = await getTask(params.id);
     setTask(data);
   }
-  
+
   async function loadEvents() {
     const { data } = await getEventos(params.id);
     setEvents(data);
@@ -77,8 +82,12 @@ export function EventosFormPage() {
         className="bg-zinc-800 p-10 rounded-lg mt-2"
       >
         {task && <h1 className="text-2xl font-bold mb-3">{task.title}</h1>}
-        {task && <h3 className="text mb-3">Registrar avance de:{  }   {task.description}</h3>}
-       
+        {task && (
+          <h3 className="text mb-3">
+            Registrar avance de:{} {task.description}
+          </h3>
+        )}
+
         <input
           value={newEvent.descripcion}
           onChange={(e) =>
@@ -112,7 +121,7 @@ export function EventosFormPage() {
           Registrar Avance
         </button>
       </form>
-      <div className="mt-10 grid grid-cols-2 gap-4">
+      <div className="mt-10 grid grid-cols-1 gap-4">
         {events
           .filter((event) => Number(event.reporte) === Number(params.id))
           .map((event, index) => {
@@ -121,25 +130,27 @@ export function EventosFormPage() {
             );
             console.log(event);
             console.log(empleado);
+
+            const fecha = new Date(event.fecha).toLocaleString("es-ES", {
+              year: "2-digit",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            });
+
+            const nombreEmpleado = empleado
+              ? empleado.nombre_empleado
+              : "Empleado no encontrado";
+
+            const datos = [nombreEmpleado, fecha, event.descripcion].join(
+              " - "
+            );
+
             return (
               <div key={index} className="bg-zinc-800 p-3 rounded-lg mb-3">
-                <div>
-                  {empleado
-                    ? empleado.nombre_empleado
-                    : "Empleado no encontrado"}{" "}
-                </div>
-                
-                <div>
-                  {new Date(event.fecha).toLocaleString("es-ES", {
-                    year: "2-digit",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: true,
-                  })}
-                </div>
-                <div>{event.descripcion}</div>
+                {datos}
               </div>
             );
           })}
