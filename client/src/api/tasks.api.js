@@ -3,7 +3,7 @@ import axios from "axios";
 const URL =
   process.env.NODE_ENV === "production"
     ? import.meta.env.VITE_BACKEND_URL
-    : "https://212.1.214.223:8000";
+    : "https://reportesmodelo-gaibarra.vercel.app/";
 
 console.log(URL);
 const tasksApi = axios.create({
