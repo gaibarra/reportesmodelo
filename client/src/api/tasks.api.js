@@ -1,12 +1,11 @@
 import axios from "axios";
 
-// const URL =
-//   process.env.NODE_ENV === "production"
-//     ? import.meta.env.VITE_BACKEND_URL
-//     // : "https://reportesmodelo-gaibarra.vercel.app/";
-//     : "http://localhost:8000";
+const URL =
+  process.env.NODE_ENV === "production"
+    ? import.meta.env.VITE_BACKEND_URL
+    : "https://reportes.click/";
+    
 
-const URL = "http://localhost:8000";
 console.log(URL);
 const tasksApi = axios.create({
   baseURL: `${URL}/tasks/api/v1/tasks`,
