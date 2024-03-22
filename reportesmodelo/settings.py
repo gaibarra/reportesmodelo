@@ -163,4 +163,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
     "https://reportesmodelo.vercel.app",
+    "https://reportesmodelo-gaibarra.vercel.app",
      ]
