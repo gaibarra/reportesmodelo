@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-l$9geg6+sjl5+f*536r5ftqab+8)8l%7#s_#(ulphapju94^hd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['reportes.click', '127.0.0.1', 'localhost', 'reportes.click:443', ]
+ALLOWED_HOSTS = ['reportesmodelo.vercel.app', '127.0.0.1', 'localhost', 'reportes.click:443', ]
 
 
 # Application definition
@@ -153,7 +153,7 @@ CORS_ORIGIN_WHITELIST = ['http://localhost:5174',
                          'http://localhost:5173',
                          'http://localhost:4173',
                          'http://localhost:3000',
-                         'https://reportes.click',
+                         'https://reportesmodelo.vercel.app',
                          ]
 
 REST_FRAMEWORK = {
@@ -166,6 +166,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4173",
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://rerportes.click",
+    "https://rerportesmodelo.vercel.app",
     "https://rerportes.click:443",
      ]
