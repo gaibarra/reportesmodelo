@@ -32,11 +32,11 @@ class Task(models.Model):
 
 
 class Empleado(models.Model):
-<<<<<<< HEAD
+
     nombre_empleado = models.CharField(max_length=30, default=None)
-=======
+
     nombre_empleado = models.CharField(max_length=50, default=None)
->>>>>>> a8b3cde (160424)
+
     campus = models.CharField(max_length=30, default=None)
 
     def __str__(self):

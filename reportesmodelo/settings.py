@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l$9geg6+sjl5+f*536r5ftqab+8)8l%7#s_#(ulphapju94^hd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-<<<<<<< HEAD
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
@@ -146,13 +146,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
   # Tell Django where to look for React's static files (css, js)
   os.path.join(BASE_DIR, "client")
-<<<<<<< HEAD
+
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-=======
   
-]
+
 
 DeSTATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # settings.py
@@ -183,11 +182,11 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'https://127.0.0.1:8000']
 
 WHITENOISE_IGNORE_REGEX = [r'\.map$']
 
-<<<<<<< HEAD
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
-=======
+
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ('.map',)
 
 
