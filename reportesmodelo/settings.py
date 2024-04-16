@@ -30,13 +30,12 @@ DEBUG = False
 ALLOWED_HOSTS = ['rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
 
 CSRF_TRUSTED_ORIGINS = ['https://rerportes.click', 'http://localhost:5173', ]
-=======
-DEBUG = True
+
+DEBUG = False
 
 ALLOWED_HOSTS = ['rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91']
 
-# CSRF_TRUSTED_ORIGINS = ['https://rerportes.click', 'http://localhost:5173', ]
->>>>>>> a8b3cde (160424)
+
 
 # Application definition
 
@@ -55,21 +54,15 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-<<<<<<< HEAD
-    "corsheaders.middleware.CorsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-=======
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
->>>>>>> a8b3cde (160424)
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'reportesmodelo.urls'
 
 TEMPLATES = [
@@ -165,7 +158,8 @@ DeSTATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage
 # settings.py
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
->>>>>>> a8b3cde (160424)
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -218,4 +212,3 @@ LOGGING = {
         },
     },
 }
->>>>>>> a8b3cde (160424)

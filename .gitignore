@@ -4,6 +4,7 @@ db.sqlite3
 staticfiles
 media
 fotos
+node_modules/
 
 
 
