@@ -1,1 +1,1 @@
-web: gunicorn reportesmodelo.wsgi --log-file -
+gunicorn reportesmodelo.wsgi:application --bind unix:/home/gaibarra/gunicorn.sock
