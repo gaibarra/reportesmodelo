@@ -2,7 +2,7 @@
     "redirects": [
       {
         "source": "https://reportesmodelo-gaibarra.vercel.app/",
-        "destination": "212.1.214.223:80",
+        "destination": "194.113.64.91:80",
         "permanent": true
       }
     ]

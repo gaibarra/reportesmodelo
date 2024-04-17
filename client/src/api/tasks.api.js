@@ -26,10 +26,7 @@ export const updateEmpleado = (id, empleado) => empleadosApi.put(`/${id}/`, empl
 export const deleteEmpleado = (id) => empleadosApi.delete(`/${id}/`);
 
 const eventosApi = axios.create({
-
-  baseURL: `${URL}/tasks/api/v1/eventos`, // Asegúrate de que la ruta es correcta.
   baseURL: `${URL}/tasks/api/v1/tasks`, // Asegúrate de que la ruta es correcta.
-
 });
 
 export const getEventos = async (taskId) => {
