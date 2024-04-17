@@ -1,10 +1,14 @@
 {
-    "redirects": [
-      {
-        "source": "https://reportesmodelo-gaibarra.vercel.app/",
-        "destination": "194.113.64.91:80",
-        "permanent": true
-      }
-    ]
-  }
-  
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html",
+      "permanent": false
+    },
+    {
+      "source": "reportesmodelo-prkjo1bnb-gaibarras-projects.vercel.app/",
+      "destination": "194.113.64.91:80",
+      "permanent": true
+    }
+  ]
+}
