@@ -33,11 +33,15 @@ class Task(models.Model):
 
 class Empleado(models.Model):
 
-    nombre_empleado = models.CharField(max_length=30, default=None)
-
     nombre_empleado = models.CharField(max_length=50, default=None)
 
     campus = models.CharField(max_length=30, default=None)
+    
+    puesto = models.CharField(max_length=50, null=True, default="")
+    
+    email = models.EmailField(max_length=50, null=True, default="")
+    
+    celular = models.CharField(max_length=10, null=True, default="")
 
     def __str__(self):
         return self.nombre_empleado  

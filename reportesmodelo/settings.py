@@ -143,6 +143,10 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+MEDIA_URL = '/fotos/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'fotos')
+
 STATICFILES_DIRS = [
   # Tell Django where to look for React's static files (css, js)
   os.path.join(BASE_DIR, "client")
@@ -167,24 +171,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:5174',
-                         'http://localhost:5173',
-                         'http://localhost:4173',
-                         'http://localhost:3000',
-                         'https://rerportes.click',
-                         'https://127.0.0.1:8000',                     ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'https://127.0.0.1:8000']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5174',
+    'http://localhost:5173',
+    'http://localhost:4173',
+    'http://localhost:3000',
+    'https://rerportes.click',
+    'http://127.0.0.1:8000',
+]
+
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'OPTIONS'
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 WHITENOISE_IGNORE_REGEX = [r'\.map$']
 
-
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ('.map',)

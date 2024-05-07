@@ -29,4 +29,4 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 if settings.DEBUG:
-    urlpatterns += static('/fotos/', document_root=settings.BASE_DIR / 'fotos')
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
