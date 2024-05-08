@@ -7,8 +7,8 @@
   ],
   "redirects": [
     {
-      "source": "/reportesmodelo-rjzreb81n-gaibarras-projects.vercel.app/",
-      "destination": "194.113.64.91:80",
+      "source": "/reportesmodelo-e5m08a7jz-gaibarras-projects.vercel.app/",
+      "destination": "http://194.113.64.91:80",
       "permanent": true
     }
   ]
