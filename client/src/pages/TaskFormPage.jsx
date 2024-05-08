@@ -83,7 +83,7 @@ export function TaskFormPage() {
       >
         <h2 className="text-3xl mb-7">{params.id ? `Reporte ${params.id}` : 'Reporte nuevo'}</h2>
 
-        <div className="mb-5">
+        <div className="mb-5" >
           <label htmlFor="title" className="block mb-2">
             Título del Reporte
           </label>
@@ -92,8 +92,16 @@ export function TaskFormPage() {
             placeholder="Title"
             {...register("title", { required: true })}
             className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
-            autoFocus
+            disabled={Boolean(params.id)}
           />
+          <div className="flex justify-center items-center">
+            <button
+              onClick={() => navigate(`/eventos/${params.id}`)}
+              className="w-80% py-2 px-3 mt-4 uppercase rounded bg-green-500 text-white ml-2 "
+            >
+              Registrar Avance o comentar
+            </button>
+          </div>
         </div>
 
         <div className="mb-5">
@@ -104,6 +112,7 @@ export function TaskFormPage() {
             id="description"
             {...register("description")}
             className="w-full px-3 py-2 bg-zinc-700 rounded"
+            disabled={Boolean(params.id)}
           />
         </div>
 
@@ -121,6 +130,7 @@ export function TaskFormPage() {
             }}
             className="w-1/2 px-3 py-2 bg-zinc-700 rounded"
             style={{ textAlign: 'center' }}
+            disabled={Boolean(params.id)}
           />
         </div>
 
@@ -134,6 +144,7 @@ export function TaskFormPage() {
             type="file"
             onChange={(e) => setValue("foto_inicial", e.target.files[0])}
             className="w-full px-3 py-2 bg-zinc-700 rounded"
+            disabled={Boolean(params.id)}
           />
         </div>
 
@@ -173,7 +184,7 @@ export function TaskFormPage() {
       </form>
 
       {params.id && (
-        <div className="flex justify-between">
+        <div className="flex justify-center items-center">
           <button
             onClick={async () => {
               const confirmed = window.confirm(
@@ -189,12 +200,7 @@ export function TaskFormPage() {
           >
             Eliminar Reporte
           </button>
-          <button
-            onClick={() => navigate(`/eventos/${params.id}`)}
-            className="w-1/2 py-2 px-3 mt-4 uppercase rounded bg-green-500 text-white ml-2"
-          >
-            Registrar Avance o comentar
-          </button>
+
         </div>
       )}
     </div>
