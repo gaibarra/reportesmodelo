@@ -1,13 +1,13 @@
 import axios from "axios";
 
-// Asegúrate de que las URLs incluyen el protocolo adecuado y están bien formadas.
-// const URL = process.env.NODE_ENV === "production"
-//   ? import.meta.env.VITE_BACKEND_URL
-//   : "https://rerportes.click";
-
+//Asegúrate de que las URLs incluyen el protocolo adecuado y están bien formadas.
 const URL = process.env.NODE_ENV === "production"
   ? import.meta.env.VITE_BACKEND_URL
-  : "http://127.0.0.1:8000";
+  : "https://rerportes.click";
+
+// const URL = process.env.NODE_ENV === "production"
+//   ? import.meta.env.VITE_BACKEND_URL
+//   : "http://127.0.0.1:8000";
 
 const tasksApi = axios.create({
   baseURL: `${URL}/tasks/api/v1/tasks`,
