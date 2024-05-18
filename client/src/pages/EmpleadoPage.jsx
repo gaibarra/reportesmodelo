@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -7,23 +7,23 @@ function EmpleadoPage() {
     const [selectedEmpleado, setSelectedEmpleado] = useState({ numero_empleado: '', puesto: '', campus: '' });
     const { id } = useParams();
 
+    const fetchEmpleados = useCallback(async () => {
+        const response = await axios.get('/tasks/api/v1/tasks/empleado');
+        setEmpleados(response.data);
+    }, []);
+
+    const fetchEmpleado = useCallback(async () => {
+        const response = await axios.get(`/tasks/api/v1/tasks/empleado/${id}`);
+        setSelectedEmpleado(response.data);
+    }, [id]);
+
     useEffect(() => {
         if (id) {
             fetchEmpleado();
         } else {
             fetchEmpleados();
         }
-    }, [id]);
-
-    const fetchEmpleados = async () => {
-        const response = await axios.get('/tasks/api/v1/tasks/empleado');
-        setEmpleados(response.data);
-    };
-
-    const fetchEmpleado = async () => {
-        const response = await axios.get(`/tasks/api/v1/tasks/empleado/${id}`);
-        setSelectedEmpleado(response.data);
-    };
+    }, [id, fetchEmpleado, fetchEmpleados]);
 
     const handleDelete = async (id) => {
         await axios.delete(`/tasks/api/v1/tasks/empleado/${id}`);

@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import {
-  getEventos,
-  createEvento,
-  getAllEmpleados,
-  getTask,
-} from "../api/tasks.api";
+import { getEventos, createEvento, getAllEmpleados, getTask } from "../api/tasks.api";
 
 export function EventosFormPage() {
   const params = useParams();
@@ -17,29 +12,28 @@ export function EventosFormPage() {
     empleado: null,
   });
   const [isEventRegistered, setIsEventRegistered] = useState(false);
-
   const [task, setTask] = useState(null);
+
+  const loadTask = useCallback(async () => {
+    const { data } = await getTask(params.id);
+    setTask(data);
+  }, [params.id]);
+
+  const loadEvents = useCallback(async () => {
+    const { data } = await getEventos(params.id);
+    setEvents(data);
+  }, [params.id]);
+
+  const loadEmpleados = useCallback(async () => {
+    const { data } = await getAllEmpleados();
+    setEmpleados(data);
+  }, []);
 
   useEffect(() => {
     loadEvents();
     loadEmpleados();
     loadTask();
-  }, []);
-
-  async function loadTask() {
-    const { data } = await getTask(params.id);
-    setTask(data);
-  }
-
-  async function loadEvents() {
-    const { data } = await getEventos(params.id);
-    setEvents(data);
-  }
-
-  async function loadEmpleados() {
-    const { data } = await getAllEmpleados();
-    setEmpleados(data);
-  }
+  }, [loadEvents, loadEmpleados, loadTask]);
 
   async function handleEventSubmit(e) {
     e.preventDefault();
@@ -70,38 +64,30 @@ export function EventosFormPage() {
       });
       loadEvents();
     } else {
-      alert("Employee not found. Please select a valid employee.");
+      alert("Empleado no encontrado. Por favor, selecciona un empleado válido.");
     }
   }
 
   return (
     <div className="max-w-xl mx-auto">
       {isEventRegistered && <p>Avance registrado</p>}
-      <form
-        onSubmit={handleEventSubmit}
-        className="bg-zinc-800 p-10 rounded-lg mt-2"
-      >
+      <form onSubmit={handleEventSubmit} className="bg-zinc-800 p-10 rounded-lg mt-2">
         {task && <h1 className="text-2xl font-bold mb-3">{task.title}</h1>}
         {task && (
           <h3 className="text mb-3">
-            Registrar avance de:{} {task.description}
+            Registrar avance de: {task.description}
           </h3>
         )}
-
         <textarea
           value={newEvent.descripcion}
-          onChange={(e) =>
-            setNewEvent({ ...newEvent, descripcion: e.target.value })
-          }
+          onChange={(e) => setNewEvent({ ...newEvent, descripcion: e.target.value })}
           placeholder="Descripción del avance o Comentario"
           className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
         />
         <select
           value={newEvent.empleado || ""}
           onChange={(e) => {
-            const empleadoSeleccionado = e.target.value
-              ? Number(e.target.value)
-              : null;
+            const empleadoSeleccionado = e.target.value ? Number(e.target.value) : null;
             setNewEvent({ ...newEvent, empleado: empleadoSeleccionado });
           }}
           className="bg-zinc-700 p-3 rounded-lg block w-full mb-3"
@@ -114,10 +100,7 @@ export function EventosFormPage() {
               </option>
             ))}
         </select>
-        <button
-          type="submit"
-          className="bg-blue-500 p-3 rounded-lg block w-full text-white font-bold"
-        >
+        <button type="submit" className="bg-blue-500 p-3 rounded-lg block w-full text-white font-bold">
           Guardar
         </button>
       </form>
@@ -125,11 +108,7 @@ export function EventosFormPage() {
         {events
           .filter((event) => Number(event.reporte) === Number(params.id))
           .map((event, index) => {
-            const empleado = empleados.find(
-              (empleado) => String(empleado.id) === String(event.empleado)
-            );
-            console.log(event);
-            console.log(empleado);
+            const empleado = empleados.find((empleado) => String(empleado.id) === String(event.empleado));
 
             const fecha = new Date(event.fecha).toLocaleString("es-ES", {
               year: "2-digit",
@@ -140,13 +119,9 @@ export function EventosFormPage() {
               hour12: true,
             });
 
-            const nombreEmpleado = empleado
-              ? empleado.nombre_empleado
-              : "Empleado no encontrado";
+            const nombreEmpleado = empleado ? empleado.nombre_empleado : "Empleado no encontrado";
 
-            const datos = [nombreEmpleado, fecha, event.descripcion].join(
-              " - "
-            );
+            const datos = [nombreEmpleado, fecha, event.descripcion].join(" - ");
 
             return (
               <div key={index} className="bg-zinc-800 p-3 rounded-lg mb-3">
