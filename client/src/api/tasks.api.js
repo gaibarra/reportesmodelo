@@ -1,16 +1,17 @@
 import axios from "axios";
 
-//Asegúrate de que las URLs incluyen el protocolo adecuado y están bien formadas.
 const URL = process.env.NODE_ENV === "production"
   ? import.meta.env.VITE_BACKEND_URL
   : "https://rerportes.click";
 
-// const URL = process.env.NODE_ENV === "production"
-//   ? import.meta.env.VITE_BACKEND_URL
-//   : "http://127.0.0.1:8000";
+const headers = {
+  'Content-Type': 'application/json',
+  // Aquí puedes agregar más cabeceras si es necesario
+};
 
 const tasksApi = axios.create({
   baseURL: `${URL}/tasks/api/v1/tasks`,
+  headers: headers
 });
 
 export const getAllTasks = () => tasksApi.get("/");
@@ -21,6 +22,7 @@ export const deleteTask = (id) => tasksApi.delete(`/${id}`);
 
 const empleadosApi = axios.create({
   baseURL: `${URL}/tasks/api/v1/empleados/`,
+  headers: headers
 });
 
 export const getAllEmpleados = () => empleadosApi.get("/");
@@ -30,7 +32,8 @@ export const updateEmpleado = (id, empleado) => empleadosApi.put(`/${id}/`, empl
 export const deleteEmpleado = (id) => empleadosApi.delete(`/${id}/`);
 
 const eventosApi = axios.create({
-  baseURL: `${URL}/tasks/api/v1/tasks`, // Asegúrate de que la ruta es correcta.
+  baseURL: `${URL}/tasks/api/v1/tasks`,
+  headers: headers
 });
 
 export const getEventos = async (taskId) => {
