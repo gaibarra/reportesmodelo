@@ -10,27 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path, os
-
+from pathlib import Path
+import os
+import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import os
-
+# Cargar variables de entorno desde el archivo .env
+from dotenv import load_dotenv
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l$9geg6+sjl5+f*536r5ftqab+8)8l%7#s_#(ulphapju94^hd'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-l$9geg6+sjl5+f*536r5ftqab+8)8l%7#s_#(ulphapju94^hd')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-DEBUG = False
-
-ALLOWED_HOSTS = ['reportesmodelo.vercel.app','rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
-
+ALLOWED_HOSTS = ['reportesmodelo.vercel.app', 'rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91']
 
 # Application definition
 
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 ROOT_URLCONF = 'reportesmodelo.urls'
 
 TEMPLATES = [
@@ -78,25 +80,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'reportesmodelo.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'reportes',
-        'HOST': 'localhost',
-        'USER': 'postgres',
-        'PASSWORD': '6Vlgpcr&',
-        'PORT': 5432
+        'NAME': os.getenv('DB_NAME', 'reportes'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', '6Vlgpcr&'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -118,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -129,7 +122,6 @@ TIME_ZONE = "America/Mexico_City"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -143,34 +135,22 @@ MEDIA_URL = '/fotos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'fotos')
 
 STATICFILES_DIRS = [
-  # Tell Django where to look for React's static files (css, js)
-  os.path.join(BASE_DIR, "static")
-
+  os.path.join(BASE_DIR, "static"),
 ]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-  
-
-
-DeSTATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# settings.py
-
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-
+# Django REST framework
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
+# CORS settings
 CORS_ALLOWED_ORIGINS = [
     'https://reportesmodelo.vercel.app',
     'http://localhost:5174',
@@ -195,13 +175,6 @@ WHITENOISE_IGNORE_REGEX = [r'\.map$']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ('.map',)
-
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -221,7 +194,5 @@ LOGGING = {
     },
 }
 
-
-
-
-
+# Activar configuraciones específicas para Vercel
+django_heroku.settings(locals())
