@@ -16,6 +16,8 @@ from pathlib import Path, os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import os
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -27,14 +29,7 @@ SECRET_KEY = 'django-insecure-l$9geg6+sjl5+f*536r5ftqab+8)8l%7#s_#(ulphapju94^hd
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
-
-CSRF_TRUSTED_ORIGINS = ['https://rerportes.click', 'http://localhost:5173', ]
-
-DEBUG = False
-
-ALLOWED_HOSTS = ['rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91']
-
+ALLOWED_HOSTS = ['reportesmodelo.vercel.app','rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
 
 
 # Application definition
@@ -177,6 +172,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+    'https://reportesmodelo.vercel.app',
+    'https://reportes.click', 
     'http://localhost:5174',
     'http://localhost:5173',
     'http://localhost:4173',
@@ -224,3 +221,7 @@ LOGGING = {
         },
     },
 }
+
+
+
+SECURE_SSL_REDIRECT = False
