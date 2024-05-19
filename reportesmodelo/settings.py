@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-l$9geg6+sjl5+f*536r5ftqab+8)8l%7#s_#(ulphapju94^hd
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['reportesmodelo.vercel.app','rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
+ALLOWED_HOSTS = ['https://reportesmodelo.vercel.app','rerportes.click', '127.0.0.1', 'localhost', '194.113.64.91' ]
 
 
 # Application definition
@@ -144,7 +144,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'fotos')
 
 STATICFILES_DIRS = [
   # Tell Django where to look for React's static files (css, js)
-  os.path.join(BASE_DIR, "client")
+  os.path.join(BASE_DIR, "static")
 
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -225,3 +225,7 @@ LOGGING = {
 
 
 SECURE_SSL_REDIRECT = False
+
+CORS_ORIGIN_WHITELIST = [
+    "https://reportesmodelo.vercel.app"
+]
