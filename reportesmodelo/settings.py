@@ -171,6 +171,13 @@ CORS_ALLOWED_METHODS = [
     'OPTIONS'
 ]
 
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 WHITENOISE_IGNORE_REGEX = [r'\.map$']
