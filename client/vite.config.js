@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
-import path from 'path';
+import { resolve } from 'path';
 
 // Cargar variables de entorno desde el archivo .env
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config();
 
 export default defineConfig(({ mode }) => {
   return {
@@ -15,9 +15,9 @@ export default defineConfig(({ mode }) => {
     },
     base: './', // Asegúrate de que la base sea correcta
     build: {
-      outDir: path.resolve(__dirname, 'dist'), // Asegúrate de que la salida sea la carpeta 'dist'
+      outDir: resolve(__dirname, 'dist'), // Asegúrate de que la salida sea la carpeta 'dist'
       rollupOptions: {
-        input: path.resolve(__dirname, 'index.html'), // Asegúrate de que la ruta de entrada sea correcta
+        input: resolve(__dirname, 'index.html'), // Asegúrate de que la ruta de entrada sea correcta
       },
     },
   };

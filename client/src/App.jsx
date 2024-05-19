@@ -1,9 +1,10 @@
 // Removed unused import statement for 'React'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 import { Navigation } from "./components/Navigation";
 import { TaskFormPage } from "./pages/TaskFormPage";
 import { TasksPage } from "./pages/TasksPage";
-import { Toaster } from "react-hot-toast";
 import EmpleadoPage from './pages/EmpleadoPage';
 import { EventosFormPage } from './pages/EventosFormPage';
 
