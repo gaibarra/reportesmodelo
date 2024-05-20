@@ -16,8 +16,17 @@ const tasksApi = axios.create({
 
 export const getAllTasks = () => tasksApi.get("/");
 export const getTask = (id) => tasksApi.get(`/${id}`);
-export const createTask = (task) => tasksApi.post("/", task);
-export const updateTask = (id, task) => tasksApi.put(`/${id}/`, task);
+
+export const createTask = (task) => {
+  const headers = task instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {};
+  return tasksApi.post("/", task, { headers });
+};
+
+export const updateTask = (id, task) => {
+  const headers = task instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {};
+  return tasksApi.put(`/${id}/`, task, { headers });
+};
+
 export const deleteTask = (id) => tasksApi.delete(`/${id}`);
 
 const empleadosApi = axios.create({
