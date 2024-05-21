@@ -41,6 +41,7 @@ export function TaskCard({ task }) {
           marginBottom: "20px",
         }}
       />
+      <label className="text-white text-lg text-center">Fecha compromiso:</label>
       <p className="text-white text-lg text-center">
         {new Intl.DateTimeFormat("es-ES", {
           year: "numeric",

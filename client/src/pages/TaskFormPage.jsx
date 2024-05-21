@@ -15,7 +15,7 @@ export function TaskFormPage() {
 
   const { register, handleSubmit, setValue, watch } = useForm();
   const fechaResolucion = watch("fechaResolucion", "");
-  const done = watch("done", "false");
+  // const done = watch("done", "false");
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -81,7 +81,7 @@ export function TaskFormPage() {
         encType="multipart/form-data"
       >
         <h2 className="text-3xl mb-7">
-          {params.id ? `Reporte ${params.id}` : "Reporte nuevo"}
+          {params.id ? `Reporte ${params.id}` : "Nuevo reporte"}
         </h2>
 
         <div className="mb-5">
@@ -134,31 +134,34 @@ export function TaskFormPage() {
             disabled={Boolean(params.id)}
           />
         </div>
-
+        <label htmlFor="fotoInicial" className="block mb-2">
+            Imagen Inicial
+          </label>
         {initialImageUrl && <img src={initialImageUrl} alt="Imagen inicial" />}
         <div className="mb-5">
-          <label htmlFor="fotoInicial" className="block mb-2">
-            Foto Inicial
-          </label>
+          
           <input
             id="fotoInicial"
             type="file"
             {...register("foto_inicial")}
             className="w-full px-3 py-2 bg-zinc-700 rounded"
+            disabled={Boolean(params.id)}
           />
+          
         </div>
-
+        <label htmlFor="fotoFinal" className="block mb-2">
+            Imagen Actualizada
+          </label> 
         {finalImageUrl && <img src={finalImageUrl} alt="Imagen final" />}
         <div className="mb-5">
-          <label htmlFor="fotoFinal" className="block mb-2">
-            Foto Actualizada
-          </label>
+          
           <input
             id="fotoFinal"
             type="file"
             {...register("foto_final")}
             className="w-full px-3 py-2 bg-zinc-700 rounded"
           />
+          
         </div>
 
         <div className="mb-5 flex justify-center">

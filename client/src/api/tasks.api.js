@@ -6,10 +6,77 @@ const URL = process.env.NODE_ENV === "production"
 
 const headers = {
   'Content-Type': 'application/json',
-  // Aquí puedes agregar más cabeceras si es necesario
 };
 
+const authApi = axios.create({
+  baseURL: `${URL}/api`,
+  headers: headers
+});
+
+export const login = async (username, password) => {
+  try {
+    const response = await authApi.post('/token/', { username, password });
+    const { access, refresh } = response.data;
+    localStorage.setItem('accessToken', access);
+    localStorage.setItem('refreshToken', refresh);
+    setAuthToken(access);
+    return response;
+  } catch (error) {
+    console.error('Error during login:', error);
+    throw error;
+  }
+};
+
+export const register = async (username, password, email) => {
+  try {
+    const response = await authApi.post('/register/', { username, password, email });
+    return response;
+  } catch (error) {
+    console.error('Error during registration:', error);
+    throw error;
+  }
+};
+
+export const logout = async () => {
+  try {
+    const refreshToken = localStorage.getItem('refreshToken');
+    await authApi.post('/logout/', { refresh: refreshToken });
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setAuthToken(null);
+  } catch (error) {
+    console.error('Error during logout:', error);
+    throw error;
+  }
+};
+
+const setAuthToken = token => {
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common['Authorization'];
+  }
+};
+
+// Set token on initial load if available
+const token = localStorage.getItem('accessToken');
+if (token) {
+  setAuthToken(token);
+}
+
+
+
 const tasksApi = axios.create({
+  baseURL: `${URL}/tasks/api/v1/tasks`,
+  headers: headers
+});
+
+const empleadosApi = axios.create({
+  baseURL: `${URL}/tasks/api/v1/empleados/`,
+  headers: headers
+});
+
+const eventosApi = axios.create({
   baseURL: `${URL}/tasks/api/v1/tasks`,
   headers: headers
 });
@@ -29,21 +96,11 @@ export const updateTask = (id, task) => {
 
 export const deleteTask = (id) => tasksApi.delete(`/${id}`);
 
-const empleadosApi = axios.create({
-  baseURL: `${URL}/tasks/api/v1/empleados/`,
-  headers: headers
-});
-
 export const getAllEmpleados = () => empleadosApi.get("/");
 export const getEmpleado = (id) => empleadosApi.get(`/${id}`);
 export const createEmpleado = (empleado) => empleadosApi.post("/", empleado);
 export const updateEmpleado = (id, empleado) => empleadosApi.put(`/${id}/`, empleado);
 export const deleteEmpleado = (id) => empleadosApi.delete(`/${id}/`);
-
-const eventosApi = axios.create({
-  baseURL: `${URL}/tasks/api/v1/tasks`,
-  headers: headers
-});
 
 export const getEventos = async (taskId) => {
   try {
